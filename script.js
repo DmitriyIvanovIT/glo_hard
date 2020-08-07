@@ -1,6 +1,5 @@
-let num = 266219;
-
-let res = 1;
+let num = 266219,
+res = 1;
 
 while(num) {
     res *= num % 10;
@@ -8,5 +7,6 @@ while(num) {
 } 
 
 console.log('Результат: ', res);
-console.log('Результат в третьей степени: ', res ** 3);
+res **= 3;
+console.log('Результат в третьей степени: ', res);
 console.log(String(res).slice(0,2));
