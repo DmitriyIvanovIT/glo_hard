@@ -53,7 +53,6 @@ console.log(result);
 // ДЗ 4
 let strInput = prompt('Введите строку');
 
-console.log(typeof strInput);
 const stringOperation = str => {
     if (typeof str !== 'string') {
         return console.log('Введена не строка');
