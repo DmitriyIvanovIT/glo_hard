@@ -1,3 +1,5 @@
+"use strict";
+// ДЗ 2
 let num = 266219,
 res = 1;
 
@@ -11,6 +13,7 @@ res **= 3;
 console.log('Результат в третьей степени: ', res);
 console.log(String(res).slice(0,2));
 
+// ДЗ 3
 // Задача 1
 let lang = prompt('Введите название языка (ru/en)');
 
@@ -47,3 +50,20 @@ let result = namePerson === 'Артем' ? 'директор' : namePerson === '
 
 console.log(result);
 
+// ДЗ 4
+let strInput = prompt('Введите строку');
+
+console.log(typeof strInput);
+const stringOperation = str => {
+    if (typeof str !== 'string') {
+        return console.log('Введена не строка');
+    };
+
+    str = str.trim();
+    if (str.length > 30) {
+        str = str.substr(0, 30) + '...';
+    }
+    console.log(str);
+};
+
+stringOperation(strInput);
