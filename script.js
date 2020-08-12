@@ -66,3 +66,18 @@ const stringOperation = str => {
 };
 
 stringOperation(strInput);
+
+// ДЗ 5
+for (let i = 2; i < 101; i++) {
+    let numberDivisors = 1;
+
+    for (let j = 2; j <= i; j++) {
+        if (i % j === 0) {
+            numberDivisors += 1;
+        }
+    };
+
+    if (numberDivisors === 2) {
+        console.log(`Простое число: ${i} делители этого числа: 1 и ${i}`);
+    }
+};
