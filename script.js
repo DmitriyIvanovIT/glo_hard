@@ -81,3 +81,16 @@ for (let i = 2; i < 101; i++) {
         console.log(`Простое число: ${i} делители этого числа: 1 и ${i}`);
     }
 };
+
+// ДЗ 7
+let week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+
+let date = new Date();
+
+console.log(week.join(', '));
+week.forEach(item => {
+    console.log(item);
+});
+
+console.log(`%c${week.slice(5).join(', ')}`, 'font-style: italic');
+console.log(`%c${week[date.getDay() - 1]}`, 'font-weight: bold');
