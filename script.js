@@ -1,6 +1,4 @@
 "use strict";
-// ДЗ 2
-
 // ДЗ 7
 const weekUl = document.querySelector('.week');
 let week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
