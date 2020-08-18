@@ -6,7 +6,6 @@ const timeOne = document.querySelector('.time-one'),
 const week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
     month = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 
-let date = new Date();
 const hourTransformation = item => {
         if (item === 1 || item === 21) {
             return 'час';
@@ -35,14 +34,16 @@ const hourTransformation = item => {
         }
     },
     addZero = item => item < 10 ? '0' + item : item,
-    timeRender = () => {
+    renderTime = () => {
+        let date = new Date();
+
         let today = (date.getDay() !== 0) ? (date.getDay() - 1) : 6;
-        timeOne.textContent = '';
-        timeTwo.textContent = '';
+
 
         timeOne.textContent = `Сегодня ${week[today]}, ${date.getDate()} ${month[date.getMonth()]} ${date.getFullYear()} года, ${date.getHours()} ${hourTransformation(date.getHours())}  ${date.getMinutes()} ${minuteTransformation(date.getMinutes())} ${date.getSeconds()} ${secondTransformation(date.getSeconds())} `;
 
-        timeTwo.textContent = `${addZero(date.getDate())}.${addZero(date.getMonth())}.${date.getFullYear()}- ${addZero(date.getHours())}:${addZero(date.getMinutes())}:${addZero(date.getSeconds())}`;
+        timeTwo.textContent = `${addZero(date.getDate())}.${addZero(date.getMonth())}.${date.getFullYear()}  - ${addZero(date.getHours())}:${addZero(date.getMinutes())}:${addZero(date.getSeconds())}`;
+
     };
 
-setInterval(timeRender, 1000);
+setInterval(renderTime, 1000);
