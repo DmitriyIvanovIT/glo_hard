@@ -16,18 +16,18 @@ const hourTransformation = item => {
         }
     },
     minuteTransformation = item => {
-        if (item % 10 === 1) {
+        if (item % 10 === 1 && item !== 11) {
             return 'минута';
-        } else if (item % 10 > 1 && item % 10 < 5) {
+        } else if ((item % 10 > 1 && item % 10 < 5) || item === 11) {
             return 'минуты';
         } else {
             return 'минут';
         }
     },
     secondTransformation = item => {
-        if (item % 10 === 1) {
+        if (item % 10 === 1 && item !== 11) {
             return 'секунда';
-        } else if (item % 10 > 1 && item % 10 < 5) {
+        } else if ((item % 10 > 1 && item % 10 < 5) || item === 11) {
             return 'секунды';
         } else {
             return 'секунд';
