@@ -18,7 +18,7 @@ const hourTransformation = item => {
     minuteTransformation = item => {
         if (item % 10 === 1 && item !== 11) {
             return 'минута';
-        } else if ((item % 10 > 1 && item % 10 < 5) || item === 11) {
+        } else if (item % 10 > 1 && item % 10 < 5) {
             return 'минуты';
         } else {
             return 'минут';
@@ -27,7 +27,7 @@ const hourTransformation = item => {
     secondTransformation = item => {
         if (item % 10 === 1 && item !== 11) {
             return 'секунда';
-        } else if ((item % 10 > 1 && item % 10 < 5) || item === 11) {
+        } else if ((item % 10 > 1 && item % 10 < 5)) {
             return 'секунды';
         } else {
             return 'секунд';
