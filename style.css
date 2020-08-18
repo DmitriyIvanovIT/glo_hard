@@ -9,24 +9,19 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-}
-
-.week {
-    list-style: none;
-    display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-.day-week {
-    margin-bottom: 6px;
-    font-size: 28px;
-}
-
-.weekend {
-    font-style: italic;
-}
-
-.today {
+.time-one, .time-two {
+    font-size: 32px;
     font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.time-one {
+    color: blue;
+}
+
+.time-two {
+    color: green;
 }
