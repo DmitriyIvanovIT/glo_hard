@@ -19,9 +19,7 @@ let startButton = document.getElementById('start'),
     targetAmount = document.querySelector('.target-amount'),
     periodSelect = document.querySelector('.period-select'),
     incomeItems = document.querySelectorAll('.income-items'),
-    periodAmount = document.querySelector('.period-amount'),
-    inputName = document.querySelectorAll('[placeholder="Наименование"]'),
-    inputSum = document.querySelectorAll('[placeholder="Сумма"]');
+    periodAmount = document.querySelector('.period-amount');
 
 startButton.style.pointerEvents = 'none';
 
@@ -99,6 +97,8 @@ let appData = {
         });
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesAdd);
         expensesItems = document.querySelectorAll('.expenses-items');
+        appData.validMethod();
+
         if (expensesItems.length === 3) {
             expensesAdd.style.display = 'none';
         }
@@ -110,6 +110,8 @@ let appData = {
         });
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomeAdd);
         incomeItems = document.querySelectorAll('.income-items');
+        appData.validMethod();
+
         if (incomeItems.length === 3) {
             incomeAdd.style.display = 'none';
         }
@@ -194,8 +196,33 @@ let appData = {
     },
     calcSavedMoney: function () {
         return appData.budgetMonth * periodSelect.value;
+    }, 
+    validMethod: function() {
+        let inputName = document.querySelectorAll('[placeholder="Наименование"]'),
+        inputSum = document.querySelectorAll('[placeholder="Сумма"]');
+
+        inputName.forEach(function () { 
+            let newInputName = document.querySelectorAll('[placeholder="Наименование"]');
+            console.log(newInputName);
+            newInputName.forEach(item => {
+                item.addEventListener('input', function () {
+                    item.value = item.value.replace(/[^А-Яа-яЁё,.!? ]/i, '');
+                });
+            });
+        });
+        
+        inputSum.forEach(function (item) {
+            item.addEventListener('input', function () {
+                if(item.value === '0') {
+                    item.value = item.value.replace(/[^1-9]/i, '');
+                }
+                item.value = item.value.replace(/[^0-9]/i, '');
+            });
+        });
     }
 };
+
+appData.validMethod();
 
 // Обработчики событий
 salaryAmount.addEventListener('change', function () {
@@ -212,18 +239,17 @@ periodSelect.addEventListener('input', function () {
     periodAmount.textContent = periodSelect.value;
 });
 
-console.log(document.querySelectorAll('[placeholder="Наименование"]'));
 // appData.getTargetMonth() > 0 ? console.log('Цель будет достигнута через: ', appData.getTargetMonth() + ' месяцев') : console.log('Цель не будет достигнута');
 // appData.getStatusIncome();
 
-inputName.forEach(function (item) {
-    item.addEventListener('input', function () {
-        item.value = item.value.replace(/[^А-Яа-яЁё,.!? ]/i, '');
-    });
-});
 
-inputSum.forEach(function (item) {
-    item.addEventListener('input', function () {
-        item.value = item.value.replace(/[^0-9]/i, '');
-    });
-});
+
+// inputs.forEach(function(item) {
+//     item.addEventListener('input', function () {
+//         if (item.getAttribute('placeholder') === "Наименование") {
+//             item.value = item.value.replace(/[^А-Яа-яЁё,.!? ]/i, '');
+//         } else if (item.getAttribute('placeholder') === "Сумма") {
+//             item.value = item.value.replace(/[^0-9]/i, '');
+//         }
+//     });
+// })
