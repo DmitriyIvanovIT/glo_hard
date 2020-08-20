@@ -201,14 +201,10 @@ let appData = {
         let inputName = document.querySelectorAll('[placeholder="Наименование"]'),
         inputSum = document.querySelectorAll('[placeholder="Сумма"]');
 
-        inputName.forEach(function () { 
-            let newInputName = document.querySelectorAll('[placeholder="Наименование"]');
-            console.log(newInputName);
-            newInputName.forEach(item => {
+        inputName.forEach(function (item) { 
                 item.addEventListener('input', function () {
                     item.value = item.value.replace(/[^А-Яа-яЁё,.!? ]/i, '');
                 });
-            });
         });
         
         inputSum.forEach(function (item) {
@@ -241,15 +237,3 @@ periodSelect.addEventListener('input', function () {
 
 // appData.getTargetMonth() > 0 ? console.log('Цель будет достигнута через: ', appData.getTargetMonth() + ' месяцев') : console.log('Цель не будет достигнута');
 // appData.getStatusIncome();
-
-
-
-// inputs.forEach(function(item) {
-//     item.addEventListener('input', function () {
-//         if (item.getAttribute('placeholder') === "Наименование") {
-//             item.value = item.value.replace(/[^А-Яа-яЁё,.!? ]/i, '');
-//         } else if (item.getAttribute('placeholder') === "Сумма") {
-//             item.value = item.value.replace(/[^0-9]/i, '');
-//         }
-//     });
-// })
