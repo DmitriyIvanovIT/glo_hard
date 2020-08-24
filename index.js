@@ -18,7 +18,6 @@ generationColor = () => {
         color += '';
     }
 
-    console.log(color);
     body.style.backgroundColor = color;
     h1.textContent = color;
     button.style.color = color;
