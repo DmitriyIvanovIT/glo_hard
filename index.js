@@ -13,8 +13,6 @@ class Second extends First {
     }
 }
 
-const first = new First(),
-second = new Second();
+const second = new Second();
 
-first.hello();
 second.hello();
