@@ -1,40 +1,56 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
-    const select = document.getElementById('cars'),
-        output = document.getElementById('output');
+    const valute = document.querySelector('.valute'),
+        valuteInput = document.querySelector('.valute-input'),
+        valuteNew = document.querySelector('.valute__new'),
+        valuteNewInput = document.querySelector('.valute__new-input');
 
-    const getData = () => new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        request.open('GET', './cars.json');
-        request.setRequestHeader('Content-type', 'application/json');
-        request.send();
-        request.addEventListener('readystatechange', () => {
-            if (request.readyState !== 4) {
-                return;
-            }
-            if (request.status === 200) {
-                resolve(JSON.parse(request.responseText));
+    const getData = url => {
+            return fetch(url);
+        },
+        convertValute = () => {
+            if (valute.value !== '' &&
+                valuteInput.value.trim() !== '' &&
+                valuteNew.value !== '') {
+                let urlAPI = `https://api.exchangeratesapi.io/latest?base=${valute.value}&symbols=${valuteNew.value}`;
+
+                getData(urlAPI)
+                    .then(response => {
+                        if (response.status !== 200) {
+                            throw new Error(`Ошибка ${response.status}!`);
+                        }
+                        return (response.json());
+                    })
+                    .then(data => {
+                        console.log(data.rates[valuteNew.value]);
+                        if (typeof parseFloat(valuteInput.value) === 'number') {
+                            valuteNewInput.value = (parseFloat(valuteInput.value) * data.rates[valuteNew.value]).toFixed(2);
+                        } else {
+                            alert('Введите число');
+                        }
+                    })
+                    .catch(error => console.error(error));
             } else {
-                output.innerHTML = 'Произошла ошибка';
-                reject(request.status);
+                valuteNewInput.value = '';
             }
-        });
-    }), 
-    changeCar = data => {
-        data.cars.forEach(item => {
-            if (item.brand === select.value) {
-                const {brand, model, price} = item;
-                output.innerHTML = `Тачка ${brand} ${model} <br>
-                Цена: ${price}$`;
-            }
-        });
-    };
+        };
 
-    select.addEventListener('change', () => {
-        getData()
-            .then(changeCar)
-            .catch(error => output.innerHTML = `Произошла ошибка ${error}`);
+
+    document.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', event => {
+            const parent = event.target.closest('.block'),
+                title = parent.querySelector('h2'),
+                options = select.querySelectorAll('option');
+            options.forEach(item => {
+                if (item.value === select.value) {
+                    title.textContent = item.textContent;
+                }
+            });
+            convertValute();
+        });
     });
+
+    valuteInput.addEventListener('input', convertValute);
 
 });
