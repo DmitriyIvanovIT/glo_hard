@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         return (response.json());
                     })
                     .then(data => {
-                        console.log(data.rates[valuteNew.value]);
                         if (typeof parseFloat(valuteInput.value) === 'number') {
                             valuteNewInput.value = (parseFloat(valuteInput.value) * data.rates[valuteNew.value]).toFixed(2);
                         } else {
