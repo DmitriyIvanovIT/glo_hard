@@ -1,56 +1,23 @@
 'use strict';
-const canvas = document.getElementById('canvas').getContext('2d');
-const radius = 50;
+const canvas = document.getElementById('canvas'),
+ctx = canvas.getContext('2d'),
+color = document.getElementById('color'),
+widthBrush = document.getElementById('width-brush');
 
-const circles = [
-  {
-    color:'blue',
-    x : 2*radius - radius/2,
-    y : 2*radius,
-    isTop: true
-  } , {
-    color:'black',
-    x : 4*radius,
-    y : 2*radius,
-    isTop: true
-  } , {
-    color:'red',
-    x : 6*radius + radius/2,
-    y : 2*radius,
-    isTop: true
-  } , {
-    color:'yellow',
-    x : 3*radius - radius/4,
-    y : 3*radius,
-    isTop: false
-  } , {
-    color:'green',
-    x : 5*radius + radius/4,
-    y : 3*radius,
-    isTop: false
-  }
-];
+color.addEventListener('input', () => ctx.strokeStyle = color.value);
+widthBrush.addEventListener('input', () => ctx.lineWidth = widthBrush.value);
 
-const drawArc = (canvas, color, x, y, start, end) => {
+canvas.addEventListener('mousemove', event => {
+    const x = event.offsetX,
+    y = event.offsetY,
+    mx = event.movementX,
+    my = event.movementY;
 
-  canvas.lineWidth = 10;
-  canvas.strokeStyle = color;
-
-  canvas.beginPath();
-  canvas.arc(x, y, radius, start - Math.PI/2, end - Math.PI/2, true);
-  canvas.stroke();
-}
-
-circles.forEach(circle => {
-  drawArc(canvas, circle.color, circle.x, circle.y, 0, Math.PI*2);
-});
-
-circles.forEach(circle => {
-  if (circle.isTop) {
-    drawArc(canvas, circle.color, circle.x, circle.y, 0, Math.PI/3);
-    drawArc(canvas, circle.color, circle.x, circle.y, Math.PI*2/3, Math.PI/3);
-  } else {
-    drawArc(canvas, circle.color, circle.x, circle.y, Math.PI/6, 0); 
-    drawArc(canvas, circle.color, circle.x, circle.y, Math.PI*5/3, Math.PI*4/3);
-  }
+    if (event.buttons > 0) {
+        ctx.beginPath();
+        ctx.moveTo(x,y);
+        ctx.lineTo(x - mx, y - my);
+        ctx.stroke();
+        ctx.closePath();
+    }
 });

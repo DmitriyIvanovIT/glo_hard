@@ -7,19 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        *{
-            box-sizing: border-box
-        }
-        body {
-            margin: 0;
-            padding: 0;
+        #canvas {
+            border: 1px solid black;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 
 <body>
 
-    <canvas id="canvas" width="600" height="600" style="margin-top: 10px;"></canvas>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <div class="inputs">
+        <input type="color" id="color">
+        <input type="range" min="1" max="10" step="1" value="0" id="width-brush">
+    </div>
 
     <script src="script.js"></script>
 </body>
