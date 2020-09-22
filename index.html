@@ -7,58 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
+        *{
+            box-sizing: border-box
+        }
         body {
-            display: flex;
-            align-items: flex-start;
+            margin: 0;
+            padding: 0;
         }
-
-        .block{
-            display: flex;
-            flex-direction: column;
-            margin-right: 30px;
-        }
-
-        select {
-            width: 200px;
-        }
-
-        input {
-            width: 200px;
-            box-sizing: border-box;
-        }
-
-       
     </style>
 </head>
 
 <body>
 
-<div class="block">
-    <select class="valute">
-        <option value="">Выберите валюту</option>
-        <option value="RUB">Рубли</option>
-        <option value="USD">Долары</option>
-        <option value="EUR">Евро</option>
-    </select>
-    <h2 class="valute-title">Валюта</h2>
-    <input type="number" placeholder="Введите сумму" class="valute-input">
-</div>
+    <canvas id="canvas" width="600" height="600" style="margin-top: 10px;"></canvas>
 
-<div class="block">
-    <select class="valute__new">
-        <option value="">Выберите валюту</option>
-        <option value="RUB">Рубли</option>
-        <option value="USD">Долары</option>
-        <option value="EUR">Евро</option>
-    </select>
-    <h2 class="valute__new-title">Валюта</h2>
-    <input type="number" class="valute__new-input" disabled>
-</div>
-
-
-
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

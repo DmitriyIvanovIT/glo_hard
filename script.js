@@ -1,55 +1,56 @@
-document.addEventListener('DOMContentLoaded', () => {
-    'use strict';
+'use strict';
+const canvas = document.getElementById('canvas').getContext('2d');
+const radius = 50;
 
-    const valute = document.querySelector('.valute'),
-        valuteInput = document.querySelector('.valute-input'),
-        valuteNew = document.querySelector('.valute__new'),
-        valuteNewInput = document.querySelector('.valute__new-input');
+const circles = [
+  {
+    color:'blue',
+    x : 2*radius - radius/2,
+    y : 2*radius,
+    isTop: true
+  } , {
+    color:'black',
+    x : 4*radius,
+    y : 2*radius,
+    isTop: true
+  } , {
+    color:'red',
+    x : 6*radius + radius/2,
+    y : 2*radius,
+    isTop: true
+  } , {
+    color:'yellow',
+    x : 3*radius - radius/4,
+    y : 3*radius,
+    isTop: false
+  } , {
+    color:'green',
+    x : 5*radius + radius/4,
+    y : 3*radius,
+    isTop: false
+  }
+];
 
-    const getData = url => {
-            return fetch(url);
-        },
-        convertValute = () => {
-            if (valute.value !== '' &&
-                valuteInput.value.trim() !== '' &&
-                valuteNew.value !== '') {
-                let urlAPI = `https://api.exchangeratesapi.io/latest?base=${valute.value}&symbols=${valuteNew.value}`;
+const drawArc = (canvas, color, x, y, start, end) => {
 
-                getData(urlAPI)
-                    .then(response => {
-                        if (response.status !== 200) {
-                            throw new Error(`Ошибка ${response.status}!`);
-                        }
-                        return (response.json());
-                    })
-                    .then(data => {
-                        if (typeof parseFloat(valuteInput.value) === 'number') {
-                            valuteNewInput.value = (parseFloat(valuteInput.value) * data.rates[valuteNew.value]).toFixed(2);
-                        } else {
-                            alert('Введите число');
-                        }
-                    })
-                    .catch(error => console.error(error));
-            } else {
-                valuteNewInput.value = '';
-            }
-        };
+  canvas.lineWidth = 10;
+  canvas.strokeStyle = color;
 
+  canvas.beginPath();
+  canvas.arc(x, y, radius, start - Math.PI/2, end - Math.PI/2, true);
+  canvas.stroke();
+}
 
-    document.querySelectorAll('select').forEach(select => {
-        select.addEventListener('change', event => {
-            const parent = event.target.closest('.block'),
-                title = parent.querySelector('h2'),
-                options = select.querySelectorAll('option');
-            options.forEach(item => {
-                if (item.value === select.value) {
-                    title.textContent = item.textContent;
-                }
-            });
-            convertValute();
-        });
-    });
+circles.forEach(circle => {
+  drawArc(canvas, circle.color, circle.x, circle.y, 0, Math.PI*2);
+});
 
-    valuteInput.addEventListener('input', convertValute);
-
+circles.forEach(circle => {
+  if (circle.isTop) {
+    drawArc(canvas, circle.color, circle.x, circle.y, 0, Math.PI/3);
+    drawArc(canvas, circle.color, circle.x, circle.y, Math.PI*2/3, Math.PI/3);
+  } else {
+    drawArc(canvas, circle.color, circle.x, circle.y, Math.PI/6, 0); 
+    drawArc(canvas, circle.color, circle.x, circle.y, Math.PI*5/3, Math.PI*4/3);
+  }
 });
